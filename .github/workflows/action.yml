@@ -31,5 +31,5 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `Please Review Artifact located [here](${artifactLink})\n\nShould be https://github.com/AzySir/gha-pr-artifact-with-link/actions/runs/9023003298/artifacts/1489036360`
+                body: `Please Review Artifact located [here](${artifactLink}) - ${artifactLink}\n\nShould be https://github.com/AzySir/gha-pr-artifact-with-link/actions/runs/9023003298/artifacts/1489036360`
               })
