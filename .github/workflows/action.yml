@@ -19,6 +19,7 @@ jobs:
           touch ${{ env.artifact-name }} 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
+        id: upload-artifact
         with:
           path: ./
           name: ${{ env.artifact-name }} 
@@ -26,10 +27,10 @@ jobs:
         id: set-result
         with:
           script: |
-            const artifactLink = `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ env.artifact-name }}`
+            const artifactLink = `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ steps.upload-artifact.outputs.artifact-id }}`
             github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `Please Review Artifact located [here](${artifactLink}) - ${artifactLink}\n\nShould be https://github.com/AzySir/gha-pr-artifact-with-link/actions/runs/9023003298/artifacts/1489036360`
+                body: `Please Review Artifact located [here](${artifactLink}) - \n\nShould be:\n\n ${artifactLink}\nhttps://github.com/AzySir/gha-pr-artifact-with-link/actions/runs/9023003298/artifacts/1489036360`
               })
