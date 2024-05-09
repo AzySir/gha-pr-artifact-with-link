@@ -3,8 +3,6 @@ name: "Github Actions Scenario - Artifact Upload with PR Comment"
 on:
   pull_request:
     types: ["opened", "edited", "synchronize"]
-  pull_request_target: 
-    types: ["opened", "edited", "synchronize"]
 
 jobs:
   artifact-pr-comment:
