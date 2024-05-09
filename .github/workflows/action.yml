@@ -3,7 +3,12 @@ name: "Github Actions Scenario - Artifact Upload with PR Comment"
 on:
   pull_request:
     types: ["opened", "edited", "synchronize"]
-
+    inputs:
+      artifact-name: 
+        description: Name of the artifact
+        required: true
+        default: artifact.txt
+        type: string
 jobs:
   artifact-pr-comment:
     runs-on: ubuntu-latest
@@ -13,12 +18,12 @@ jobs:
       - name: Build Example Project
         run: | 
           echo "Building Artifact..."
-          touch artifact.txt
+          touch ${{ inputs.artifact-name }}
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           path: ./
-          name: artifact.txt
+          name: ${{ inputs.artifact-name }}
       - uses: actions/github-script@v7
         id: set-result
         with:
@@ -27,5 +32,5 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: 'Please Review Artifact located at: <LINK HERE>'
+                body: 'Please Review Artifact located at: [here](${{ github.actions_url }}/${{ github.workflow }}/runs/${{ github.run_id }}/artifacts/${{ inputs.artifact-name }})'
               })
