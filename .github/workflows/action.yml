@@ -1,0 +1,29 @@
+# Outside of this repository
+on:
+  pull_request:
+    types: ["opened", "edited", "synchronize"]
+
+jobs:
+  github_actions_checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Example Project
+        run: | 
+          echo "Building Artifact..."
+          touch artifact.txt
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifact.txt
+      - uses: actions/github-script@v7
+        id: set-result
+        with:
+          script: |
+            github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Please Review Artifact located at: <LINK HERE>'
+              })
