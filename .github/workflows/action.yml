@@ -26,10 +26,10 @@ jobs:
         id: set-result
         with:
           script: |
-            const artifactLink = `https://github.com/${{ github.repository }}//actions/runs/${{ github.run_id }}/artifacts/${{ env.artifact-name }}`
+            const artifactLink = `https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts/${{ env.artifact-name }}`
             github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `Please Review Artifact located [here](${artifactLink})`
+                body: `Please Review Artifact located [here](${artifactLink})\n\nShould be https://github.com/AzySir/gha-pr-artifact-with-link/actions/runs/9023003298/artifacts/1489036360`
               })
