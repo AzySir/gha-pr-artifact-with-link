@@ -26,9 +26,10 @@ jobs:
         id: set-result
         with:
           script: |
+            const artifactLink = `https://github.com/${{ github.repository }}//actions/runs/${{ github.run_id }}/artifacts/${{ env.artifact-name }}`
             github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: 'Please Review Artifact located at: [here](${{ github.actions_url }}/${{ github.workflow }}/runs/${{ github.run_id }}/artifacts/${{ env.artifact-name }} )'
+                body: `Please Review Artifact located [here](${artifactLink})`
               })
