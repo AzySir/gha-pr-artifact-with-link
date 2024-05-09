@@ -1,10 +1,11 @@
 # Outside of this repository
+name: "Github Actions Scenario - Artifact Upload with PR Comment"
 on:
   pull_request:
     types: ["opened", "edited", "synchronize"]
 
 jobs:
-  github_actions_checkout:
+  artifact-pr-comment:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
