@@ -34,3 +34,11 @@ jobs:
                 repo: context.repo.repo,
                 body: `Please Review Artifact located [here](${artifactLink})\nLink for Debugging: ${artifactLink}`
               })
+  profiling: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Delphix Profiling
+        uses: ./ # When App Teams use this action - uses: FedEx/eai-3535610-delphix-continuous-compliance-automation
+        with:
+          ENV: ${{ inputs.ENV }}
+          csv-name: "my-csv-profiling"
